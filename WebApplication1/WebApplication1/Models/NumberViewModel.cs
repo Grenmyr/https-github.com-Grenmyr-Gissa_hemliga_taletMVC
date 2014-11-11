@@ -14,22 +14,27 @@ namespace WebApplication1.Models
         {
             _secretNumber = new SecretNumber();
         }
+        public int GuessCount() 
+        {
+            return _secretNumber.Count;
+        }
 
-        private IList<GuessedNumber> GuessedNumbers
+        public IList<GuessedNumber> GuessedNumbers
         {
             get
             {
                 return _secretNumber.GuessedNumbers;
             }
         }
+     
         public void MakeGuess(int guess)
         {
             _secretNumber.MakeGuess(guess);
         }
 
-        public GuessedNumber LastGuessedNumber()
+        public int ? LastGuessedNumber()
         {
-            return _secretNumber.LastGuessedNumber;
+            return  _secretNumber.LastGuessedNumber.Number;
         }
 
     }

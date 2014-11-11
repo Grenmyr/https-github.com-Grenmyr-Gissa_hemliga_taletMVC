@@ -4,6 +4,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-<p>test</p>
+<h2>Index Guesscontroller</h2>
+<h4>Gissningar @Model.GuessCount()</h4>
+@using (Html.BeginForm()) 
+{
+    @Html.TextBox("Guess")
+    <input type="submit" value="Create" />
+    
+    
+}
+<div>
+    @Model.LastGuessedNumber()
+</div>
+   
+        
+   
+
 
