@@ -11,7 +11,7 @@ using WebApplication1.Models;
 namespace WebApplication1.Tests.Models
 {
     [TestClass]
-    public class SecretNumberTest*
+    public class SecretNumberTest
     {
         [TestMethod]
         public void CheckConstructor()

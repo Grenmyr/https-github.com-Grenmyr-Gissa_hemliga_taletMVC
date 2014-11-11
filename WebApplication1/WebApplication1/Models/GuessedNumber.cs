@@ -18,8 +18,6 @@ namespace WebApplication1.Models
     public struct GuessedNumber
     {
         public int? Number;
-        //Funkar det?
-        //Eller?
         public Outcome Outcome;
 
     }
