@@ -4,24 +4,27 @@
     ViewBag.Title = "Index";
 }
    
-    <p>
+
+    
+        
     @foreach (var item in Model.GuessedNumbers)
-    {
+{   <p>
         @item.Number
-    }
-</p>
+        @item.Outcome
+    </p>
+}
+        
+
 
 <h2>Index Guesscontroller</h2>
 <h4>Gissningar @Model.GuessCount()</h4>
 @using (Html.BeginForm()) 
 {
     
-    //@Html.LabelFor(m => m.Number)
-    //@Html.EditorFor(m => m.Number)
     @Html.LabelFor(m => m.Guess)
     @Html.EditorFor(m => m.Guess)
 
-    //@Html.TextBox("Guess")
+  
     <input type="submit" value="Create" />
 
 }

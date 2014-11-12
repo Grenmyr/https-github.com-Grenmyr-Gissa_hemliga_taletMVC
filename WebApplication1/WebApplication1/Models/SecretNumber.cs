@@ -31,7 +31,7 @@ namespace WebApplication1.Models
         {
             get
             {
-                return _guessedNumbers.Count;
+                return GuessedNumbers.Count;
             }
         }
 

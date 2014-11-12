@@ -9,31 +9,32 @@ namespace WebApplication1.Controllers
 {
     public class GuessController : Controller
     {
+        private NumberViewModel _numberViewModel;
      
 
         public GuessController()
         {
-        
+            _numberViewModel = new NumberViewModel();
         }
-        public NumberViewModel NumberViewModel { get 
+        public SecretNumber SecretNumberSession { get 
         {
-           return  Session["secretNumber"] as NumberViewModel ?? (NumberViewModel)(Session["secretNumber"] = new NumberViewModel());
+            return Session["secretNumber"] as SecretNumber ?? (SecretNumber)(Session["secretNumber"] = new SecretNumber());
         }
         }
         //
         // GET: /Guess/
         public ActionResult Index()
         {
-
-            return View(NumberViewModel);
+            _numberViewModel.SetSecretNumber = SecretNumberSession;
+            return View(_numberViewModel);
         }
-        [HttpPost]
-        public ActionResult Index(NumberViewModel guess)
-        {
 
-            
-            NumberViewModel.MakeGuess(guess.Guess);
-            return View(NumberViewModel);
+        [HttpPost]
+        public ActionResult Index( NumberViewModel number)
+        {
+            number.SetSecretNumber = SecretNumberSession;
+            number.MakeGuess(number.Guess);
+            return View(number);
         }
         
 	}

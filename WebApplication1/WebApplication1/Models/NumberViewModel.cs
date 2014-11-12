@@ -9,12 +9,10 @@ namespace WebApplication1.Models
     {
 
         private SecretNumber _secretNumber;
-        private  int _guess;
+       //private IList<GuessedNumber> _guessedNumbers;
 
-        public NumberViewModel()
-        {
-            _secretNumber = new SecretNumber();
-        }
+
+        public SecretNumber SetSecretNumber { set { _secretNumber = value; } }
         public int GuessCount() 
         {
             return _secretNumber.Count;
@@ -24,28 +22,26 @@ namespace WebApplication1.Models
         {
             get
             {
-                return _secretNumber.GuessedNumbers;
+                return _secretNumber.GuessedNumbers;              
             }
         }
-     
+        
         public void MakeGuess(int guess)
         {
             _secretNumber.MakeGuess(guess);
         }
+
         public int ? Number
         {
             get { return _secretNumber.Number; }
             
-        }
-        public int Guess
-        {
-            get { return _guess; }
-            set { _guess = value; }
-        }
+        }     
         public int ? LastGuessedNumber()
         {
             return  _secretNumber.LastGuessedNumber.Number;
         }
+
+        public int Guess { get; set; }
 
     }
 }
