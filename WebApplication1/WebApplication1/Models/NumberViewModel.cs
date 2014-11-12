@@ -9,6 +9,7 @@ namespace WebApplication1.Models
     {
 
         private SecretNumber _secretNumber;
+        private  int _guess;
 
         public NumberViewModel()
         {
@@ -31,7 +32,16 @@ namespace WebApplication1.Models
         {
             _secretNumber.MakeGuess(guess);
         }
-
+        public int ? Number
+        {
+            get { return _secretNumber.Number; }
+            
+        }
+        public int Guess
+        {
+            get { return _guess; }
+            set { _guess = value; }
+        }
         public int ? LastGuessedNumber()
         {
             return  _secretNumber.LastGuessedNumber.Number;
