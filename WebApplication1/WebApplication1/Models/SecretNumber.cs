@@ -91,8 +91,8 @@ namespace WebApplication1.Models
                 if (guess > _number) { _lastGuessedNumber.Outcome = Outcome.High; }
                 else if (guess < _number) { _lastGuessedNumber.Outcome = Outcome.Low; }
                 else if (guess == _number) { _lastGuessedNumber.Outcome = Outcome.Right; }
-            }
-            _guessedNumbers.Add(_lastGuessedNumber);
+                _guessedNumbers.Add(_lastGuessedNumber);
+            }        
             return _lastGuessedNumber.Outcome;
         }
     }

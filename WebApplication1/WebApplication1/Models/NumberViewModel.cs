@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,8 +10,6 @@ namespace WebApplication1.Models
     {
 
         private SecretNumber _secretNumber;
-       //private IList<GuessedNumber> _guessedNumbers;
-
 
         public SecretNumber SetSecretNumber { set { _secretNumber = value; } }
         public int GuessCount() 
@@ -26,9 +25,9 @@ namespace WebApplication1.Models
             }
         }
         
-        public void MakeGuess(int guess)
+        public Outcome MakeGuess(int guess)
         {
-            _secretNumber.MakeGuess(guess);
+            return _secretNumber.MakeGuess(guess);
         }
 
         public int ? Number
@@ -40,7 +39,16 @@ namespace WebApplication1.Models
         {
             return  _secretNumber.LastGuessedNumber.Number;
         }
+        // ska denna snacka med en enum här i min vy och endast användas för bestämma utfall?
+        public Outcome ? LastGuessedOutcome()
+        {   
+            var outcome = _secretNumber.LastGuessedNumber.Outcome;
+            if (outcome == Outcome.OldGuess) { return outcome; }
+            else if( outcome == Outcome.Right) { return outcome; }
+            else { return null; }   
+        }
 
+        [Required (ErrorMessage="Fyll i värde")]
         public int Guess { get; set; }
 
     }

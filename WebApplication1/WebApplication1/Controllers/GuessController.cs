@@ -33,7 +33,18 @@ namespace WebApplication1.Controllers
         public ActionResult Index( NumberViewModel number)
         {
             number.SetSecretNumber = SecretNumberSession;
-            number.MakeGuess(number.Guess);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    number.MakeGuess(number.Guess);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError(String.Empty,e);
+                }
+                
+            }
             return View(number);
         }
         

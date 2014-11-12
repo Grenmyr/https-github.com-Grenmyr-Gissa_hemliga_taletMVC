@@ -23,13 +23,15 @@
     
     @Html.LabelFor(m => m.Guess)
     @Html.EditorFor(m => m.Guess)
+    @Html.ValidationMessageFor(m => m.Guess)
 
   
     <input type="submit" value="Create" />
 
 }
+
 <div>
-    @Model.LastGuessedNumber()
+    @Model.LastGuessedOutcome()   
 </div>
    
         
