@@ -8,9 +8,8 @@ namespace WebApplication1.Models
 {
     public class NumberViewModel
     {
-
+        
         private SecretNumber _secretNumber;
-
         public SecretNumber SetSecretNumber { set { _secretNumber = value; } }
         public int GuessCount() 
         {
@@ -35,21 +34,32 @@ namespace WebApplication1.Models
             get { return _secretNumber.Number; }
             
         }     
-        public int ? LastGuessedNumber()
+        public string LastGuessedNumber()
         {
-            return  _secretNumber.LastGuessedNumber.Number;
+            if (Number != null) { return String.Format("Spelet är över, Hemliga talet var {0}",Number); }
+            else if (_secretNumber.LastGuessedNumber.Number.HasValue) { return String.Format("Senaste Gissning var {0}", _secretNumber.LastGuessedNumber.Number); }
+            else { return "Skriv in gissning för börja spelet"; }
         }
-        // ska denna snacka med en enum här i min vy och endast användas för bestämma utfall?
-        public Outcome ? LastGuessedOutcome()
-        {   
-            var outcome = _secretNumber.LastGuessedNumber.Outcome;
-            if (outcome == Outcome.OldGuess) { return outcome; }
-            else if( outcome == Outcome.Right) { return outcome; }
-            else { return null; }   
-        }
-
+      
         [Required (ErrorMessage="Fyll i värde")]
         public int Guess { get; set; }
 
+        public IReadOnlyDictionary<Outcome,string> Result 
+        {
+            get
+            {
+                var result = new Dictionary<Outcome, string>
+                {
+                    {Outcome.Indefinite ,"varsego att börja gissa."},
+                    {Outcome.Low , "Din gissning var för låg."},
+                    {Outcome.High , "Din gissning var för hög."},
+                    {Outcome.Right , "Grattis Rätt Talet var"},
+                    {Outcome.NoMoreGuesses , String.Format("Slut på gissningar spelet är slut, det hemliga talet var {0}",Number)},
+                    {Outcome.OldGuess , "Gammal gissning gissningen registrerades ej "}
+                };
+
+                return result;
+            }
+        }
     }
 }

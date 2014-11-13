@@ -2,37 +2,36 @@
 
 @{
     ViewBag.Title = "Index";
-}
-   
+}    
 
-    
-        
-    @foreach (var item in Model.GuessedNumbers)
-{   <p>
-        @item.Number
-        @item.Outcome
-    </p>
-}
-        
-
-
+@Html.ValidationSummary(true)
 <h2>Index Guesscontroller</h2>
-<h4>Gissningar @Model.GuessCount()</h4>
+<h4>Regler:  Du har 7 chanser på gissa det hemliga talet, som är ett tal mellan 1-100</h4>   
+<h4>Utförda Gissningar @Model.GuessCount(),  @Model.LastGuessedNumber()</h4>
+
 @using (Html.BeginForm()) 
 {
     
     @Html.LabelFor(m => m.Guess)
     @Html.EditorFor(m => m.Guess)
     @Html.ValidationMessageFor(m => m.Guess)
+    <input type="submit" value="Gissa" />
+    if (@Model.Number != null) {  <input type="submit" value="Starta Om" /> }
+    <div>
+        <ol>
+            @foreach (var item in @Model.GuessedNumbers)
+            {
+                <li>
+                    @Model.Result[@item.Outcome]
+                    @item.Number
+                </li>          
+            }
+        </ol>
 
-  
-    <input type="submit" value="Create" />
-
+    </div>
 }
 
-<div>
-    @Model.LastGuessedOutcome()   
-</div>
+
    
         
    

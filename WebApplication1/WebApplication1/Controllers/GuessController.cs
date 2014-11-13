@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError(String.Empty,e);
+                    ModelState.AddModelError(String.Empty,e.Message);
                 }
                 
             }

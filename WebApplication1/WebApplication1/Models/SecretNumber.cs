@@ -79,7 +79,10 @@ namespace WebApplication1.Models
         public Outcome MakeGuess(int guess)
         {
             if (guess < 1 | guess > 100) { throw new ArgumentOutOfRangeException(); }
-            if (!CanMakeGuess) { return Outcome.NoMoreGuesses; }
+            if (!CanMakeGuess) {
+                _lastGuessedNumber.Outcome = Outcome.NoMoreGuesses;
+                return Outcome.NoMoreGuesses;
+            }
 
             _lastGuessedNumber = new GuessedNumber();
             _lastGuessedNumber.Number = guess;
