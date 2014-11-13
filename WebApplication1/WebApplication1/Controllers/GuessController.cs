@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
     
         public ActionResult startover()
         {
-            ModelState.AddModelError("errorMessage","Din session gick ut, spelet startades om");
+            
             SecretNumberSession.Initialize();
             return RedirectToAction("Index");
         }

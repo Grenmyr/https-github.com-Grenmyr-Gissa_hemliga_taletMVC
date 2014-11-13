@@ -6,7 +6,7 @@
 
 @Html.ValidationSummary(true)
 @Html.ValidationMessage("sessionerror")
-<h2>Index Guesscontroller</h2>
+<h2> Guesscontroller</h2>
 <h3>Regler:  Du har 7 chanser på gissa det hemliga talet, som är ett tal mellan 1-100</h3>   
 <h4>Utförda Gissningar @Model.GuessCount()</h4>
 <h4>@Model.LastGuessedNumber()</h4>
@@ -18,15 +18,8 @@
         @Html.ValidationMessageFor(m => m.Guess)
         <p><input type="submit" value="Gissa" class="btn btn-primary" /></p>
     </div>
-    
-    if (@Model.Number != null) { using (Html.BeginForm("startover", "Guess")) 
-        {
-            
-            @Html.ActionLink("starta om", "startover", "Guess")
-        } 
-}
+      
     <div>
-
         <ol>
             @foreach (var item in @Model.GuessedNumbers)
             {
@@ -41,12 +34,31 @@
 }
 @section scripts
 {
+
     <script>
         $(function () {
             $("#Guess").focus();
         });
-    </script>   
+    </script>
 }
+@if (Model.Number != null)
+    {
+        using (Html.BeginForm("startover", "Guess"))
+        {
+                @Html.ActionLink("starta om", "startover", "Guess")
+        }
+    }
+    
+
+
+
+
+
+
+
+
+
+  
 
 
 
