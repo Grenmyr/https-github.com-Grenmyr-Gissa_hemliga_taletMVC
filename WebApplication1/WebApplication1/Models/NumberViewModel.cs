@@ -8,8 +8,9 @@ namespace WebApplication1.Models
 {
     public class NumberViewModel
     {
-        
+      
         private SecretNumber _secretNumber;
+        
         public SecretNumber SetSecretNumber { set { _secretNumber = value; } }
         public int GuessCount() 
         {
@@ -19,8 +20,8 @@ namespace WebApplication1.Models
         public IList<GuessedNumber> GuessedNumbers
         {
             get
-            {
-                return _secretNumber.GuessedNumbers;              
+            {     
+                return  _secretNumber.GuessedNumbers;            
             }
         }
         
@@ -29,19 +30,25 @@ namespace WebApplication1.Models
             return _secretNumber.MakeGuess(guess);
         }
 
-        public int ? Number
+        public int? Number
         {
-            get { return _secretNumber.Number; }
-            
-        }     
+
+            get
+            {
+                return _secretNumber.Number;
+            }
+         
+        }  
         public string LastGuessedNumber()
         {
             if (Number != null) { return String.Format("Spelet är över, Hemliga talet var {0}",Number); }
-            else if (_secretNumber.LastGuessedNumber.Number.HasValue) { return String.Format("Senaste Gissning var {0}", _secretNumber.LastGuessedNumber.Number); }
-            else { return "Skriv in gissning för börja spelet"; }
+            else if (_secretNumber.LastGuessedNumber.Outcome == Outcome.OldGuess) { return "Gammal gissning, gissningen registrerades ej"; }
+            else if (_secretNumber.LastGuessedNumber.Number.HasValue  ) { return String.Format("Senaste Gissning var {0}", _secretNumber.LastGuessedNumber.Number); }
+            else { return "Skriv in giltig gissning för börja spelet"; }
         }
       
         [Required (ErrorMessage="Fyll i värde")]
+        [Range(1,100,ErrorMessage="Endast heltal gissningar mellan 1-100 är giltiga.")]
         public int Guess { get; set; }
 
         public IReadOnlyDictionary<Outcome,string> Result 
@@ -50,14 +57,10 @@ namespace WebApplication1.Models
             {
                 var result = new Dictionary<Outcome, string>
                 {
-                    {Outcome.Indefinite ,"varsego att börja gissa."},
                     {Outcome.Low , "Din gissning var för låg."},
                     {Outcome.High , "Din gissning var för hög."},
-                    {Outcome.Right , "Grattis Rätt Talet var"},
-                    {Outcome.NoMoreGuesses , String.Format("Slut på gissningar spelet är slut, det hemliga talet var {0}",Number)},
-                    {Outcome.OldGuess , "Gammal gissning gissningen registrerades ej "}
+                    {Outcome.Right , "Grattis Rätt Talet var"}
                 };
-
                 return result;
             }
         }

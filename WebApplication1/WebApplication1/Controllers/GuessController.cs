@@ -11,15 +11,24 @@ namespace WebApplication1.Controllers
     {
         private NumberViewModel _numberViewModel;
      
-
         public GuessController()
         {
-            _numberViewModel = new NumberViewModel();
+            _numberViewModel = new NumberViewModel(); 
         }
         public SecretNumber SecretNumberSession { get 
         {
+          
+            Session.Timeout = 1;
             return Session["secretNumber"] as SecretNumber ?? (SecretNumber)(Session["secretNumber"] = new SecretNumber());
         }
+        }
+     
+    
+        public ActionResult startover()
+        {
+            ModelState.AddModelError("errorMessage","Din session gick ut, spelet startades om");
+            SecretNumberSession.Initialize();
+            return RedirectToAction("Index");
         }
         //
         // GET: /Guess/
@@ -32,6 +41,10 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Index( NumberViewModel number)
         {
+            if (Session.IsNewSession) 
+            {
+                ModelState.AddModelError("sessionerror", "SESSIONFEL Spelet startades om");
+            }
             number.SetSecretNumber = SecretNumberSession;
             if (ModelState.IsValid)
             {
