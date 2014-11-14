@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WebApplication1.Models
 {
+    public enum GameSetting { normal, hard, professional }
     public class NumberViewModel
     {
       
@@ -74,5 +76,20 @@ namespace WebApplication1.Models
                 return result;
             }
         }
+        public SelectList GameDifficulty
+        {
+            get
+            {
+                var list = new Dictionary<GameSetting, string>
+                {
+                     {  GameSetting.normal, "Normal 7 gissningar." },
+                     {  GameSetting.hard, "Svår 6 gissningar." },
+                     {  GameSetting.professional, "Omöjlig 5 gissningar." },
+                };
+
+                return new SelectList(list, "key", "value");
+            }
+        }
+        
     }
 }

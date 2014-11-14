@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Models.Irules;
+using WebApplication1.Models.Rules;
 
 namespace WebApplication1.Controllers
 {
@@ -21,7 +22,7 @@ namespace WebApplication1.Controllers
         {
           
             Session.Timeout = 1;
-            return Session["secretNumber"] as SecretNumber ?? (SecretNumber)(Session["secretNumber"] = new SecretNumber(new Hard()));
+            return Session["secretNumber"] as SecretNumber ?? (SecretNumber)(Session["secretNumber"] = new SecretNumber(new Normal()));
         }
             set
             {
@@ -32,18 +33,27 @@ namespace WebApplication1.Controllers
         public ActionResult SetGame()
         {
             
-            return View();
+            return View(_numberViewModel);
         }
-        public ActionResult HardGame()
+        [HttpPost]
+        public ActionResult SetGame(GameSetting gameDifficulty)
         {
-            SecretNumberSession = new SecretNumber(new Hard());
-            return RedirectToAction("Index");
-        }
-        public ActionResult NormalGame()
-        {
-            SecretNumberSession = new SecretNumber(new Normal());
-            return RedirectToAction("Index");
-        }
+            switch (gameDifficulty)
+            {
+                case GameSetting.normal:
+                    SecretNumberSession = new SecretNumber(new Normal());
+                    return RedirectToAction("Index");
+                case GameSetting.hard:
+                    SecretNumberSession = new SecretNumber(new Hard());
+                    return RedirectToAction("Index");
+                case GameSetting.professional:
+                    SecretNumberSession = new SecretNumber(new Professional());
+                    return RedirectToAction("Index");
+                default:
+                    SecretNumberSession = new SecretNumber(new Normal());
+                    return RedirectToAction("Index");
+            }           
+        }    
     
         public ActionResult startover()
         {

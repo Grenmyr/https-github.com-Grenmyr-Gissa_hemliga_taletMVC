@@ -126,6 +126,7 @@
     <Compile Include="Models\Rules\IRules.cs" />
     <Compile Include="Models\NumberViewModel.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Rules\Professional.cs" />
     <Compile Include="Models\SecretNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
