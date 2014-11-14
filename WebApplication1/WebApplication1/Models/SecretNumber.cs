@@ -53,11 +53,10 @@ namespace WebApplication1.Models
         {
             get
             {
-                //return _guessedNumbers.AsReadOnly().Last();
                 return _lastGuessedNumber;
             }
         }
-
+        
         public int? Number
         {
             get

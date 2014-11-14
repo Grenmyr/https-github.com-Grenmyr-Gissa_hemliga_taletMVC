@@ -7,6 +7,7 @@ namespace WebApplication1.Models.Irules
 {
     public class Normal : IRules
     {
-        public int MaxNumberOfGuesses() { return 7; }
+        private int _maxNumberOfGuesses = 7;
+        public int MaxNumberOfGuesses() { return _maxNumberOfGuesses; }
     }
 }

@@ -5,24 +5,19 @@
 
 <div class="jumbotron">
     <h1>Hej Välkommen till Spelet</h1>
-    <h4>
-        Välj mellan svårighetsgraderna:
-    </h4>
-        <ul>
-            @foreach (var item in Model.GameDifficulty)
-            {
-                <li>     
-                    @item.Text
-                </li>
-            }
-        </ul>
-   
+    <h4>Välj mellan svårighetsgraderna:</h4>
+    <ul >
+        @foreach (var item in Model.GameDifficulty)
+        {
+            <li>
+                @item.Text
+            </li>
+        }
+    </ul> 
     <div class="nav navbar-nav">
         @using (Html.BeginForm())
         {
-
             @Html.DropDownListFor(m => m.GameDifficulty, Model.GameDifficulty)
-
             <input type="submit" value="Starta Spel" class="btn btn-primary" />
         }
     </div>

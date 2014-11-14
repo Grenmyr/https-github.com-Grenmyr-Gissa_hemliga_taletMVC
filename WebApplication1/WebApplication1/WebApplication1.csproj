@@ -165,7 +165,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Person\Index.cshtml" />
     <Content Include="Views\Guess\Index.cshtml" />
-    <Content Include="Views\Guess\Create.cshtml" />
     <Content Include="Views\Guess\SetGame.cshtml" />
   </ItemGroup>
   <ItemGroup />

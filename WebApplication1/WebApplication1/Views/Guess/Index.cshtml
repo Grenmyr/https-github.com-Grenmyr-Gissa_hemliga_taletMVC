@@ -7,9 +7,10 @@
 @Html.ValidationSummary(true)
 @Html.ValidationMessage("sessionerror")
 <h2> Guesscontroller</h2>
-<h3>Regler: Svårighetsgrad @Model.GameDifficulty.SelectedValue. Du har @Model.MaxNumberOfGuesses chanser på gissa det hemliga talet, som är ett tal mellan 1-100</h3>   
-<h4>Utförda Gissningar @Model.GuessCount()</h4>
-<h4>@Model.LastGuessedNumber()</h4>
+<h3>Regler:  Du har @Model.MaxNumberOfGuesses chanser på gissa det hemliga talet, som är ett tal mellan 1-100</h3>   
+<h4 class="alert alert-success">Utförda Gissningar @Model.GuessCount()</h4>
+
+<h4 class="alert alert-success">@Model.LastGuessedNumber()</h4>
 @using (Html.BeginForm())
 {
     <div class="form-group">           
@@ -41,13 +42,7 @@
         });
     </script>
 }
-@if (Model.Number != null)
-    {
-        using (Html.BeginForm("startover", "Guess"))
-        {
-                @Html.ActionLink("starta om", "startover", "Guess")
-        }
-    }
+
     
 
 

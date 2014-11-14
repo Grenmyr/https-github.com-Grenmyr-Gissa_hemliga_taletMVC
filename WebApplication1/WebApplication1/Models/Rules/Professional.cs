@@ -8,6 +8,7 @@ namespace WebApplication1.Models.Rules
 {
     public class Professional : IRules
     {
-        public int MaxNumberOfGuesses() { return 5; }
+        private int _maxNumberOfGuesses = 5;
+        public int MaxNumberOfGuesses() { return _maxNumberOfGuesses; }
     }
 }
