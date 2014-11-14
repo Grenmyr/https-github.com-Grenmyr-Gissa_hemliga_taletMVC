@@ -11,26 +11,39 @@ namespace WebApplication1.Controllers
     public class GuessController : Controller
     {
         private NumberViewModel _numberViewModel;
-        private IRules _difficulty = new Hard();
+        
         public GuessController()
         {
             _numberViewModel = new NumberViewModel(); 
         }
-        /* TODO: Try initilise game with rule.
-        public GuessController(IRules difficulty)
-        {
-
-            _difficulty = difficulty;
-            _numberViewModel = new NumberViewModel(); 
-        }*/
+    
         public SecretNumber SecretNumberSession { get 
         {
           
             Session.Timeout = 1;
-            return Session["secretNumber"] as SecretNumber ?? (SecretNumber)(Session["secretNumber"] = new SecretNumber(_difficulty));
+            return Session["secretNumber"] as SecretNumber ?? (SecretNumber)(Session["secretNumber"] = new SecretNumber(new Hard()));
         }
+            set
+            {
+                Session["secretNumber"] = value;
+            }
         }
-     
+
+        public ActionResult SetGame()
+        {
+            
+            return View();
+        }
+        public ActionResult HardGame()
+        {
+            SecretNumberSession = new SecretNumber(new Hard());
+            return RedirectToAction("Index");
+        }
+        public ActionResult NormalGame()
+        {
+            SecretNumberSession = new SecretNumber(new Normal());
+            return RedirectToAction("Index");
+        }
     
         public ActionResult startover()
         {

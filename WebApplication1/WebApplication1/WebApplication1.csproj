@@ -165,6 +165,7 @@
     <Content Include="Views\Person\Index.cshtml" />
     <Content Include="Views\Guess\Index.cshtml" />
     <Content Include="Views\Guess\Create.cshtml" />
+    <Content Include="Views\Guess\SetGame.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

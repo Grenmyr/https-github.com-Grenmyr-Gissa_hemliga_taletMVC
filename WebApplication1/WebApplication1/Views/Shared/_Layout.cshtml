@@ -16,13 +16,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Davids Bootstrap kopia", "Index", "Hem", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Davids Bootstrap kopia", "Guess", "restart", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("startover", "startover", "Guess")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Start om och välj Svårighetsgrad", "SetGame", "Guess")</li>        
+                    <li>@Html.ActionLink("Starta om samma svårighetsgrad", "startover", "Guess")</li>                
                 </ul>
             </div>
         </div>

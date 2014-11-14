@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Hej Välkommen till Spelet, välj svårighetsgrad. Normal är 7 gissningar Hard är 6 gissningar.</h1>
+</div>
+
+<div>
+    @Html.ActionLink("Hard", "HardGame", "Guess")
+    @Html.ActionLink("Normal", "NormalGame", "Guess")
+</div>

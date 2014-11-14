@@ -267,14 +267,14 @@ namespace WebApplication1.Tests.Models
         public void CheckNormalDifficultMaxNumberProperty()
         {
             var sn = new SecretNumber(new Normal());
-            var number = (int)GetFieldValue(sn.MaxNumberOfGuesses, "_maxNumberOfGuesses");
+            var number = sn.MaxNumberOfGuesses;
             Assert.IsTrue(number == 7, "Fältet _maxNumberOfGuesses är inte tilldelad värdet 7.");
         }
         [TestMethod]
         public void CheckHardDifficultMaxNumberProperty()
         {
             var sn = new SecretNumber(new Hard());
-            var number = (int)GetFieldValue(sn.MaxNumberOfGuesses, "_maxNumberOfGuesses");
+            var number = sn.MaxNumberOfGuesses;
             Assert.IsTrue(number == 6, "Fältet _maxNumberOfGuesses är inte tilldelad värdet 6.");
         }
 
