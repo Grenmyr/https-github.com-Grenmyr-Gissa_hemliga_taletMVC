@@ -7,7 +7,7 @@
 @Html.ValidationSummary(true)
 @Html.ValidationMessage("sessionerror")
 <h2> Guesscontroller</h2>
-<h3>Regler:  Du har 7 chanser på gissa det hemliga talet, som är ett tal mellan 1-100</h3>   
+<h3>Regler:  Du har @Model.MaxNumberOfGuesses chanser på gissa det hemliga talet, som är ett tal mellan 1-100</h3>   
 <h4>Utförda Gissningar @Model.GuessCount()</h4>
 <h4>@Model.LastGuessedNumber()</h4>
 @using (Html.BeginForm())

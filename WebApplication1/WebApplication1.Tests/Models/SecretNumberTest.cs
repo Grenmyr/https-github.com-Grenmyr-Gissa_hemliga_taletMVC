@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApplication1.Models;
+using WebApplication1.Models.Irules;
 
 namespace WebApplication1.Tests.Models
 {
@@ -16,10 +17,10 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckConstructor()
         {
-            var number = (int)GetFieldValue(new SecretNumber(), "_number");
+            var number = (int)GetFieldValue(new SecretNumber(new Normal()), "_number");
             Assert.IsTrue(number >= 1 && number <= 100, "_number är inte ett tal i det slutna intervallet mellan 1 och 100.");
 
-            var guessedNumbers = (List<GuessedNumber>)GetFieldValue(new SecretNumber(), "_guessedNumbers");
+            var guessedNumbers = (List<GuessedNumber>)GetFieldValue(new SecretNumber(new Normal()), "_guessedNumbers");
             Assert.IsNotNull(guessedNumbers, "_guessedNumbers har inte initierats.");
             Assert.IsTrue(guessedNumbers.Capacity == 7, "_guessedNumbers är inte förberedd för sju element (Capacity ger inte värdet 7).");
         }
@@ -27,7 +28,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckInitialize()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             int number;
             do
             {
@@ -51,7 +52,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuessLow()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             int number, prevNumber, loopCount = 5;
             do
             {
@@ -74,7 +75,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuessHigh()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             int number, prevNumber, loopCount = 5;
             do
             {
@@ -97,7 +98,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuessRight()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var guess = (int)GetFieldValue(sn, "_number");
             Assert.IsTrue(sn.MakeGuess(guess) == Outcome.Right, "MakeGuess returnerar inte Outcome.Right då det gissade talet är samma som det hemliga talet.");
             Assert.IsTrue(sn.LastGuessedNumber.Outcome == Outcome.Right, "Egenskapen LastGuessedNumber egenskap Outcome är inte Outcome.Right efter en gissning på rätt tal gjorts.");
@@ -106,7 +107,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuessOldGuess()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var guess = Math.Max((int)GetFieldValue(sn, "_number") ^ 3, 1);
             sn.MakeGuess(guess);
             guess = Math.Max((int)GetFieldValue(sn, "_number") ^ 3, 1);
@@ -117,7 +118,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuesskNoMoreGuesses()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var number = (int)GetFieldValue(sn, "_number");
             while (number >= 94)
             {
@@ -136,7 +137,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckCanMakeGuessProperty()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var number = (int)GetFieldValue(sn, "_number");
             while (number >= 94)
             {
@@ -159,7 +160,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuessArgumentOfRangeExcceptionIfGuessLowerThan1()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             try
             {
                 sn.MakeGuess(0);
@@ -179,7 +180,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckMakeGuessArgumentOfRangeExcceptionIfGuessGreaterThan100()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             try
             {
                 sn.MakeGuess(101);
@@ -199,7 +200,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckCountProperty()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var number = (int)GetFieldValue(sn, "_number");
             while (number >= 94)
             {
@@ -220,7 +221,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckLastGuessedNumberProperty()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var number = (int)GetFieldValue(sn, "_number");
             while (number >= 94)
             {
@@ -239,7 +240,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckGuessedNumberProperty()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             var guessedNumbersField = (IList<GuessedNumber>)GetFieldValue(sn, "_guessedNumbers");
             Assert.AreNotSame(guessedNumbersField, sn.GuessedNumbers, "Privacy leak!!! En kopia av referensen till det privata List-objektet returneras av egenskapen GuessedNumbers.");
         }
@@ -247,7 +248,7 @@ namespace WebApplication1.Tests.Models
         [TestMethod]
         public void CheckNumberProperty()
         {
-            var sn = new SecretNumber();
+            var sn = new SecretNumber(new Normal());
             Assert.IsNull(sn.Number, "Egenskapen Number returnerar inte null trots att det finns gissningar kvar.");
             var number = (int)GetFieldValue(sn, "_number");
             while (number >= 94)
@@ -263,9 +264,18 @@ namespace WebApplication1.Tests.Models
         }
 
         [TestMethod]
-        public void CheckConstant()
+        public void CheckNormalDifficultMaxNumberProperty()
         {
-            Assert.IsTrue(SecretNumber.MaxNumberOfGuesses == 7, "Konstanten MaxNumberOfGuesses är inte tilldelad värdet 7.");
+            var sn = new SecretNumber(new Normal());
+            var number = (int)GetFieldValue(sn.MaxNumberOfGuesses, "_maxNumberOfGuesses");
+            Assert.IsTrue(number == 7, "Fältet _maxNumberOfGuesses är inte tilldelad värdet 7.");
+        }
+        [TestMethod]
+        public void CheckHardDifficultMaxNumberProperty()
+        {
+            var sn = new SecretNumber(new Hard());
+            var number = (int)GetFieldValue(sn.MaxNumberOfGuesses, "_maxNumberOfGuesses");
+            Assert.IsTrue(number == 6, "Fältet _maxNumberOfGuesses är inte tilldelad värdet 6.");
         }
 
         private static object GetFieldValue(object o, string name)

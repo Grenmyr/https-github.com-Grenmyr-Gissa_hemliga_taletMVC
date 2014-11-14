@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebApplication1.Models.Irules;
 
 namespace WebApplication1.Models
 {
@@ -13,18 +14,22 @@ namespace WebApplication1.Models
 
         private int? _number;
 
-        public const int MaxNumberOfGuesses = 7;
+        private int _maxNumberOfGuesses;
 
-        public SecretNumber()
+        public SecretNumber(IRules rules)
         {
-            _guessedNumbers = new List<GuessedNumber>(MaxNumberOfGuesses);
+            _maxNumberOfGuesses = rules.MaxNumberOfGuesses();
+            _guessedNumbers = new List<GuessedNumber>(_maxNumberOfGuesses);
             Initialize();
         }
+
+        public int MaxNumberOfGuesses { get { return _maxNumberOfGuesses; } }
+
         public bool CanMakeGuess
         {
             get
             {
-                return Count < MaxNumberOfGuesses && (!GuessedNumbers.Any(guess => guess.Outcome == Outcome.Right));
+                return Count < _maxNumberOfGuesses && (!GuessedNumbers.Any(guess => guess.Outcome == Outcome.Right));
             }
         }
         public int Count
@@ -69,6 +74,7 @@ namespace WebApplication1.Models
 
         public void Initialize()
         {
+            
             _guessedNumbers.Clear();
             var random = new Random();
             Number = random.Next(1, 101);

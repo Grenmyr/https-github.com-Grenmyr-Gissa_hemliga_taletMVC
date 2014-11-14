@@ -10,11 +10,20 @@ namespace WebApplication1.Models
     {
       
         private SecretNumber _secretNumber;
-        
-        public SecretNumber SetSecretNumber { set { _secretNumber = value; } }
+        private int _maxNumberOfGuesses;
+
+        public SecretNumber SecretNumberGameSettings { set { _secretNumber = value; MaxNumberOfGuesses = _secretNumber.MaxNumberOfGuesses; } }
         public int GuessCount() 
         {
             return _secretNumber.Count;
+        }
+        public int MaxNumberOfGuesses 
+        { 
+            get 
+            {
+                return _maxNumberOfGuesses;
+            }
+            set { _maxNumberOfGuesses = value; }
         }
 
         public IList<GuessedNumber> GuessedNumbers
@@ -57,6 +66,7 @@ namespace WebApplication1.Models
             {
                 var result = new Dictionary<Outcome, string>
                 {
+                    //{Outcome.OldGuess , "Gammal gissning, gissningen registrerades ej"},
                     {Outcome.Low , "Din gissning var för låg."},
                     {Outcome.High , "Din gissning var för hög."},
                     {Outcome.Right , "Grattis Rätt Talet var"}

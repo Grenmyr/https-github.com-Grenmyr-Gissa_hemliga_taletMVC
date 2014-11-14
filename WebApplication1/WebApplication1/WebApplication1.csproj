@@ -121,6 +121,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\GuessedNumber.cs" />
+    <Compile Include="Models\Rules\Hard.cs" />
+    <Compile Include="Models\Rules\Normal.cs" />
+    <Compile Include="Models\Rules\IRules.cs" />
     <Compile Include="Models\NumberViewModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SecretNumber.cs" />
