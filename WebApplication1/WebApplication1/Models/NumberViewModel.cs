@@ -46,7 +46,7 @@ namespace WebApplication1.Models
             }
         }
 
-        public IList<GuessedNumber> GuessedNumbers
+        public IEnumerable<GuessedNumber> GuessedNumbers
         {
             get
             {     
@@ -99,7 +99,7 @@ namespace WebApplication1.Models
 
         [Required (ErrorMessage="Fyll i värde")]
         [Range(1,100,ErrorMessage="Endast heltal gissningar mellan 1-100 är giltiga.")]
-        public int Guess { get; set; }
+        public int  Guess { get; set; }
 
         /// <summary>
         /// Dictionary, for present list of historical guesses in index.cshtml
@@ -130,7 +130,7 @@ namespace WebApplication1.Models
                 {
                      {  GameSetting.normal, "Normal 7 gissningar." },
                      {  GameSetting.hard, "Svår 6 gissningar." },
-                     {  GameSetting.professional, "Omöjlig 5 gissningar." },
+                     {  GameSetting.professional, "Omöjlig 3 gissningar." },
                 };
 
                 return new SelectList(list, "key", "value");

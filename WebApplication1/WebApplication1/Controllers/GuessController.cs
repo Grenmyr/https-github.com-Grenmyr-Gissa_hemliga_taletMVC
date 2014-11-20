@@ -35,7 +35,9 @@ namespace WebApplication1.Controllers
             
             return View(_numberViewModel);
         }
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SetGame(GameSetting gameDifficulty)
         {
             switch (gameDifficulty)
@@ -72,6 +74,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index( NumberViewModel number)
         {
             if (Session.IsNewSession) 

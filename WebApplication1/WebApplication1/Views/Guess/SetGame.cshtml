@@ -15,8 +15,9 @@
         }
     </ul> 
     <div class="nav navbar-nav">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm())       
         {
+            @Html.AntiForgeryToken()
             @Html.DropDownListFor(m => m.GameDifficulty, Model.GameDifficulty)
             <input type="submit" value="Starta Spel" class="btn btn-primary" />
         }

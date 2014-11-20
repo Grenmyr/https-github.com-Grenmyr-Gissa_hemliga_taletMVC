@@ -36,11 +36,11 @@ namespace WebApplication1.Models
         {
             get
             {
-                return GuessedNumbers.Count;
+                return GuessedNumbers.Count();
             }
         }
 
-        public IList<GuessedNumber> GuessedNumbers
+        public IEnumerable<GuessedNumber> GuessedNumbers
         {
             get
             {
